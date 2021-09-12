@@ -1,0 +1,46 @@
+.root {
+    height: 100vh;
+    overflow-y: hidden;
+}
+
+.container {
+    max-width: 85vw;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.logo {
+    height: 90px;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.signupimg {
+    width: 42vw;
+    position: relative;
+    top: -23px;
+    left: 0;
+}
+
+.background {
+    height: 100%;
+    clip-path: polygon(50% 0, 100% 0, 100% 100%, 35% 100%);
+}
+
+.backgroundcolor {
+    height: 100%;
+    background-image: linear-gradient(to right top, #6847ec, #7a52fd, #8259fd, #9f7aff, #a884ff, #af86fd, #b587fc, #bb89fa, #c183f6, #c77cf1, #cc75ec, #d26de6);
+}
+
+.form-container {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    width: 50%;
+    height: 100vh;
+}
