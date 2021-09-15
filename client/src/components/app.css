@@ -44,3 +44,7 @@
     width: 50%;
     height: 100vh;
 }
+
+body {
+    background-color: white;
+}
