@@ -1,10 +1,11 @@
 import React from 'react'
 import Logo from '../assests/logo.svg'
 import Signupimg from '../assests/register.json'
-import DisplayLottie from './DisplayLottie'
+import DisplayLottie from '../components/DisplayLottie'
 // import { makeStyles } from '@material-ui/core/styles';
-import './app.css'
-import Signupform from './Signupform'
+import '../components/app.css'
+import Signupform from '../components/Signupform'
+import { NavLink } from 'react-router-dom'
 // const useStyles = makeStyles({
 
 // });
@@ -20,7 +21,9 @@ const Signup = () => {
                     <div className="backgroundcolor"></div>
                 </div>
                 <div className="container">
-                    <img className="logo" src={Logo} alt="wm-logo" />
+                    <NavLink to='/'>
+                        <img className="logo" src={Logo} alt="wm-logo" />
+                    </NavLink>
                     <div className="signupimg">
                         <DisplayLottie animationData={Signupimg} />
                     </div>

@@ -41,16 +41,16 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
     paper: {
-        marginTop: theme.spacing(8),
+        marginTop: theme.spacing(17),
         display: 'flex',
         flexDirection: 'column',
     },
     form: {
         width: '100%',
-        marginTop: theme.spacing(3),
+        marginTop: theme.spacing(2),
     },
     submit: {
-        margin: theme.spacing(5, 0, 3),
+        margin: theme.spacing(7, 0, 3),
         color: 'white'
     },
     textfield: {
@@ -93,46 +93,10 @@ export default function SignUp() {
             <ThemeProvider theme={theme}>
                 <div className={classes.paper}>
                     <Typography align="left" variant="h3" className={classes.title}>
-                        Create Account
+                        Welcome Back!
                     </Typography>
                     <form className={classes.form} noValidate>
                         <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    className={classes.textfield}
-                                    color='secondary'
-                                    autoComplete="fname"
-                                    name="firstName"
-                                    required
-                                    fullWidth
-                                    id="firstName"
-                                    label="First Name"
-                                    InputLabelProps={{
-                                        classes: {
-                                            root: classes.cssLabel,
-                                            focused: classes.cssFocused,
-                                        }
-                                    }}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    className={classes.textfield}
-                                    color='secondary'
-                                    required
-                                    fullWidth
-                                    id="lastName"
-                                    label="Last Name"
-                                    name="lastName"
-                                    autoComplete="lname"
-                                    InputLabelProps={{
-                                        classes: {
-                                            root: classes.cssLabel,
-                                            focused: classes.cssFocused,
-                                        }
-                                    }}
-                                />
-                            </Grid>
                             <Grid item xs={12}>
                                 <TextField
                                     className={classes.textfield}
@@ -178,13 +142,13 @@ export default function SignUp() {
                             color="primary"
                             className={classes.submit}
                         >
-                            Sign Up
+                            Login
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <NavLink to="/signin" className={classes.link}>
+                                <NavLink to="/register" className={classes.link}>
                                     <Link variant="body2" color='secondary' underline='none'>
-                                        Already have an account? Sign in
+                                        Don't have an account? Sign up
                                     </Link>
                                 </NavLink>
                             </Grid>
