@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -11,7 +11,7 @@ import Container from '@material-ui/core/Container';
 import '../components/app.css'
 import { createTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 const theme = createTheme({
     palette: {
@@ -84,7 +84,36 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function SignUp() {
+export default function Loginform() {
+
+    const history = useHistory();
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const loginUser = async (e) => {
+        e.preventDefault();
+
+        const res = await fetch("/signin", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email, password
+            })
+        })
+
+        const data = res.json();
+
+        if (res.status === 400 || !data) {
+            window.alert("Invalid Credentials")
+        } else {
+            window.alert("Login Successful");
+            history.push("/home");
+        }
+    }
+
     const classes = useStyles();
 
     return (
@@ -95,11 +124,13 @@ export default function SignUp() {
                     <Typography align="left" variant="h3" className={classes.title}>
                         Welcome Back!
                     </Typography>
-                    <form className={classes.form} noValidate>
+                    <form className={classes.form} method="POST" noValidate>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <TextField
                                     className={classes.textfield}
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     color='secondary'
                                     required
                                     fullWidth
@@ -118,6 +149,8 @@ export default function SignUp() {
                             <Grid item xs={12}>
                                 <TextField
                                     className={classes.textfield}
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     color='secondary'
                                     required
                                     fullWidth
@@ -141,6 +174,7 @@ export default function SignUp() {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
+                            onClick={loginUser}
                         >
                             Login
                         </Button>
