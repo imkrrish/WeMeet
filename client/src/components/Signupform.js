@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -11,7 +11,7 @@ import Container from '@material-ui/core/Container';
 import '../components/app.css'
 import { createTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 const theme = createTheme({
     palette: {
@@ -85,6 +85,49 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp() {
+    const history = useHistory();
+    const [user, setUser] = useState({
+        firstName: "", lastName: "", email: "", password: ""
+    });
+
+    let name, value;
+    const handleInputs = (e) => {
+        console.log(e);
+        name = e.target.name;
+        value = e.target.value;
+
+        setUser({ ...user, [name]: value });
+    }
+
+    const postData = async (e) => {
+        e.preventDefault();
+
+        const { firstName, lastName, email, password } = user;
+
+        const res = await fetch("/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                firstName, lastName, email, password
+            })
+        });
+
+        const data = await res.json();
+
+        if (data.status === 422 || !data) {
+            window.alert("invalid Registration")
+            console.log("invalid Registration");
+        } else {
+            window.alert("Registration success")
+            console.log("Registration success");
+            history.push("/signin");
+        }
+
+    }
+
+
     const classes = useStyles();
 
     return (
@@ -95,11 +138,13 @@ export default function SignUp() {
                     <Typography align="left" variant="h3" className={classes.title}>
                         Create Account
                     </Typography>
-                    <form className={classes.form} noValidate>
+                    <form className={classes.form} method="POST" noValidate>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     className={classes.textfield}
+                                    value={user.firstName}
+                                    onChange={handleInputs}
                                     color='secondary'
                                     autoComplete="fname"
                                     name="firstName"
@@ -118,6 +163,8 @@ export default function SignUp() {
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     className={classes.textfield}
+                                    value={user.lastName}
+                                    onChange={handleInputs}
                                     color='secondary'
                                     required
                                     fullWidth
@@ -136,6 +183,8 @@ export default function SignUp() {
                             <Grid item xs={12}>
                                 <TextField
                                     className={classes.textfield}
+                                    value={user.email}
+                                    onChange={handleInputs}
                                     color='secondary'
                                     required
                                     fullWidth
@@ -154,6 +203,8 @@ export default function SignUp() {
                             <Grid item xs={12}>
                                 <TextField
                                     className={classes.textfield}
+                                    value={user.password}
+                                    onChange={handleInputs}
                                     color='secondary'
                                     required
                                     fullWidth
@@ -177,6 +228,7 @@ export default function SignUp() {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
+                            onClick={postData}
                         >
                             Sign Up
                         </Button>

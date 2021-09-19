@@ -16,9 +16,9 @@ router.get('/', (req, res) => {
 
 router.post('/register', async (req, res) => {
 
-    const { name, email, password } = req.body;
+    const { firstName, lastName, email, password } = req.body;
 
-    if (!name || !email || !password) {
+    if (!firstName || !lastName || !email || !password) {
         return res.status(422).json({ err: "filed required" });
     }
 
@@ -29,7 +29,7 @@ router.post('/register', async (req, res) => {
             return res.status(422).json({ err: "email already exist" })
         }
 
-        const user = new User({ name, email, password });
+        const user = new User({ firstName, lastName, email, password });
 
         const userRegister = await user.save();
 
